@@ -27,6 +27,7 @@ function DynamicBackground() {
           const videoSrc = "/videos/m2-res_720p.mp4";
           video = document.createElement('video');
           video.src = videoSrc;
+          video.preload = 'auto';
           video.addEventListener('loadeddata', handleLoadedData);
           video.load();
         }
