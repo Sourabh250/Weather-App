@@ -10,20 +10,23 @@ function DynamicBackground() {
 
   useEffect(() => {
     let video;
+
+    const handleLoadedData = () => {
+      const videoSrc = "/videos/m2-res_720p.mp4";
+      setBackground({
+        type: "video",
+        source: videoSrc
+      });
+    }
+
     const updateBackground = () => {
       const weatherCondition = weather.weather[0].main.toLowerCase();
 
       if (["clouds", "rain"].includes(weatherCondition)) {
-        const videoSrc = "/videos/m2-res_720p.mp4";
         if (background.type !== 'video') {
+          const videoSrc = "/videos/m2-res_720p.mp4";
           video = document.createElement('video');
           video.src = videoSrc;
-          const handleLoadedData = () => {
-            setBackground({
-              type: "video",
-              source: videoSrc
-            });
-          }
           video.addEventListener('loadeddata', handleLoadedData);
           video.load();
         }
@@ -40,8 +43,8 @@ function DynamicBackground() {
     }
 
     return () => {
-      if(video) {
-        video.removeEventListener('loadeddata', () => {})
+      if(video && handleLoadedData) {
+        video.removeEventListener('loadeddata', handleLoadedData)
       }
     }
   }, [weather, background.type]);
