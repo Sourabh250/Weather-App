@@ -11,7 +11,7 @@ function App() {
       <MyNav />
       <WeatherContextProvider>
         <DynamicBackground />
-        <main className="w-full sm:w-48 md:w-96 mx-auto  rounded-lg shadow-lg">
+        <main className="w-full sm:w-48 md:w-96 mx-auto  rounded-lg shadow-lg mb-16">
           <WeatherSearch />
           <CurrentWeather />
         </main>

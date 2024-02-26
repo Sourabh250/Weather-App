@@ -54,7 +54,7 @@ function WeatherSearch() {
   };
 
   return (
-    <div className="text-center mt-32 mx-4  flex flex-col items-center">
+    <div className="text-center mt-16 md:mt-32 mx-4  flex flex-col items-center">
       <div className="relative w-full sm:w-48 md:w-96 inline-block">
         <input
           placeholder="Search..."
