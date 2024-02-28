@@ -13,8 +13,13 @@ const WeatherContextProvider = ({children}) => {
         setWeather(newWeather);
     },[])
 
+    const reset = () => {
+        setLocation({address: "", coordinates: []});
+        setWeather(null);
+    }
+
     return (
-        <WeatherContext.Provider value={{location, updateLocation, weather, updateWeather}}>
+        <WeatherContext.Provider value={{location, updateLocation, weather, updateWeather, reset}}>
             {children}
         </WeatherContext.Provider>
     )

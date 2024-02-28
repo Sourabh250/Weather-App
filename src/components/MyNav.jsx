@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import logo from "../logo.svg";
 import { FaSearch } from "react-icons/fa";
 import { FaBell } from "react-icons/fa";
+import { WeatherContext } from "../context/WeatherContext";
 
 function MyNav() {
+  const { reset } = useContext(WeatherContext);
   return (
     <nav className="h-16  text-white bg-gradient-to-r from-blue-500 to-purple-600">
       <div className="flex items-center justify-between px-4 h-full">
         <div className="flex items-center">
           <img src={logo} alt="logo" className="h-12 mr-3 hidden md:block" />
-          <h1 className="text-xl font-bold">WeatherApp</h1>
+          <h1 className="text-xl font-bold hover:cursor-pointer" onClick={reset}>WeatherApp</h1>
         </div>
         <div className="flex items-center gap-4">
           <button className="text-white hover:text-gray-300 hidden sm:block">

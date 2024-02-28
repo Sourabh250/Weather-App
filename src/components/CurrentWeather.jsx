@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { WeatherContext } from "../context/WeatherContext";
-import { FaSun, FaSnowflake, FaTint, FaWind, FaCloud } from "react-icons/fa";
+import { FaSun, FaSnowflake, FaTint, FaWind, FaCloud, FaSpinner } from "react-icons/fa";
 
 
 function CurrentWeather() {
   const { location, weather, updateWeather } = useContext(WeatherContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const WeatherIcon = () => {
     if (!weather) return null;
@@ -25,12 +24,12 @@ function CurrentWeather() {
 
 
   useEffect(() => {
-    setIsLoading(true);
     const fetchWeather = async () => {
       const apiKey = "fea0527750fd6589d37265142ebea344";
       const coords = [...location.coordinates];
       if (coords.length > 0) {
         const weatherLink = `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&appid=${apiKey}&units=metric`;
+        setIsLoading(true);
         try {
           const response = await fetch(weatherLink);
           const data = await response.json();
@@ -38,25 +37,19 @@ function CurrentWeather() {
           updateWeather(data);
         } catch (error) {
           console.error("Error fetching weather data:", error);
+        } finally {
+          setIsLoading(false);
         }
-        setIsLoading(false);
-        setIsInitialLoad(false);
       }
     };
 
     fetchWeather();
   }, [location, updateWeather]);
 
-  if(isInitialLoad && !weather) {
-    return null;
-  }
-
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center">
-      <div className="text-lg font-semibold text-gray-300">
-        Loading... Please Wait
-      </div>
+      <div className="flex justify-center items-center mt-32">
+      <FaSpinner className="spin text-3xl" />
     </div>
     )
   }

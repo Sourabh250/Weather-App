@@ -37,7 +37,14 @@ function WeatherSearch() {
   const [val, setVal] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(true);
   const suggestions = useSuggestions(val);
-  const { updateLocation } = useContext(WeatherContext);
+  const { location, updateLocation } = useContext(WeatherContext);
+
+  useEffect(() => {
+    if (!location.address) {
+      setVal("");
+      setShowSuggestions(false);
+    }
+  }, [location])
 
   const handleChange = (e) => {
     setVal(e.target.value);
@@ -54,8 +61,8 @@ function WeatherSearch() {
   };
 
   return (
-    <div className="text-center mt-16 md:mt-32 mx-4  flex flex-col items-center">
-      <div className="relative w-full sm:w-48 md:w-96 inline-block">
+    <div className="text-center  mt-16 md:mt-32 flex flex-col items-center">
+      <div className="relative  w-full  inline-block">
         <input
           placeholder="Search..."
           className="text-black rounded-lg shadow-sm border-2 border-gray-300 focus:outline-none focus:border-blue-500 transition duration-150 ease-in-out w-full py-1  pr-8 pl-4"
@@ -67,7 +74,7 @@ function WeatherSearch() {
           <FaSearch />
         </button>
         {showSuggestions && suggestions.length > 0 && (
-          <ul className="absolute z-10 bg-white mt-2 w-full sm:w-48 md:w-96 shadow-lg max-h-60 overflow-auto">
+          <ul className="absolute z-10 bg-white mt-2 w-full shadow-lg max-h-60 overflow-auto">
             {suggestions.map((suggestion, index) => (
               <li
                 className="p-2 hover:bg-gray-100 cursor-pointer"
