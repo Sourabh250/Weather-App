@@ -8,7 +8,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ## Website
 
-You can view the live site here: [Your Website Name](https://basic-weather-app-react.netlify.app/)
+You can view the live site here: [Click Here](https://basic-weather-app-react.netlify.app/)
 
 ...
 
