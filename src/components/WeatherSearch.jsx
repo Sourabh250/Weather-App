@@ -40,7 +40,26 @@ function WeatherSearch() {
   const { location, updateLocation } = useContext(WeatherContext);
 
   useEffect(() => {
-    if (!location.address) {
+    const fetchByIp = async() => {
+      try {
+        const response = await fetch('https://ipapi.co/json');
+        const data = await response.json();
+        const {city, latitude, longitude} = data;
+        console.log("called fetch ip api");
+
+        updateLocation({
+          address: city,
+          coordinates: [latitude, longitude]
+        });
+      } catch(error) {
+        console.error("Error fetching location from IP:", error);
+      }
+    }
+    fetchByIp();
+  }, []);
+
+  useEffect(() => {
+    if (!location.address && val) {
       setVal("");
       setShowSuggestions(false);
     }
@@ -52,6 +71,11 @@ function WeatherSearch() {
   };
 
   const handleSuggestions = (suggestion) => {
+    if(location.address === suggestion.address) {
+      setShowSuggestions(false);
+      return;
+    }
+
     setVal(suggestion.address);
     setShowSuggestions(false);
     updateLocation({

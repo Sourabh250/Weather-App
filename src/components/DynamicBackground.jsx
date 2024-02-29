@@ -9,7 +9,7 @@ function DynamicBackground() {
   useEffect(() => {
     const updateBackground = () => {
       const weatherCondition = weather.weather[0].main.toLowerCase();
-      console.log(weatherCondition);
+      console.log("Updated background");
 
       switch(weatherCondition) {
         case "haze" :
@@ -47,7 +47,7 @@ function DynamicBackground() {
   }, [weather]);
 
   return (
-    <div className="h-full w-full fixed -z-10 top-0" style={{ background: background }} ></div>
+    <div className="h-full w-full fixed -z-10 top-0" style={{ background: background}} ></div>
   )
 }
 

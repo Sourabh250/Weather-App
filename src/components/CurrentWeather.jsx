@@ -25,15 +25,15 @@ function CurrentWeather() {
 
   useEffect(() => {
     const fetchWeather = async () => {
+      setIsLoading(true);
       const apiKey = "fea0527750fd6589d37265142ebea344";
       const coords = [...location.coordinates];
       if (coords.length > 0) {
         const weatherLink = `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&appid=${apiKey}&units=metric`;
-        setIsLoading(true);
         try {
           const response = await fetch(weatherLink);
           const data = await response.json();
-          // console.log(data);
+          console.log("Weather Api");
           updateWeather(data);
         } catch (error) {
           console.error("Error fetching weather data:", error);
@@ -43,7 +43,10 @@ function CurrentWeather() {
       }
     };
 
-    fetchWeather();
+    if(location && location.coordinates.length) {
+      fetchWeather();
+    }
+
   }, [location, updateWeather]);
 
   if (isLoading) {
