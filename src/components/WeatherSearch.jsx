@@ -56,6 +56,7 @@ function WeatherSearch() {
       }
     }
     fetchByIp();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -63,6 +64,7 @@ function WeatherSearch() {
       setVal("");
       setShowSuggestions(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location])
 
   const handleChange = (e) => {
